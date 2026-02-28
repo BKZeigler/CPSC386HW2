@@ -1,0 +1,21 @@
+using UnityEngine;
+using UnityEngine.Scripting;
+
+public class SpellGrabber : MonoBehaviour
+{
+
+    [SerializeField] private string inputText;
+    SpellChecker spellChecker;
+
+    public void Awake()
+    {
+        spellChecker = FindFirstObjectByType<SpellChecker>();
+    }
+
+    public void GrabSpellFromInput(string input) // Grabs spell name input by player and calls to spellchecker to check it
+    {
+        inputText = input.ToUpper(); // makes typed spell uppercase to match database names
+        spellChecker.CheckSpell(inputText); // calls spells checkers CheckSpell
+    }
+
+}
