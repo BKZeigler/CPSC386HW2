@@ -4,14 +4,12 @@ public abstract class Boss : MonoBehaviour // unique bosses will inherit from th
 {
 
     public float attackInterval = 2f; // time between attacks
-    private float attackTimer = 1f; // current timer of boss' attack cooldown
-
-    private Player player;
+    private float attackTimer; // current timer of boss' attack cooldown
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     public virtual void Start()
     {
-        player = FindFirstObjectByType<Player>();
+        Debug.Log("BASE START RUNNING", this);
         attackTimer = attackInterval; // timer starts given the attack interval
     }
 
@@ -22,10 +20,10 @@ public abstract class Boss : MonoBehaviour // unique bosses will inherit from th
 
        if (attackTimer <= 0f) // when the timer is hits zero
         {
-            Attack(null); // perform attack
+            Attack(); // perform attack
             attackTimer = attackInterval; // and restart timer
         } 
     }
 
-    public abstract void Attack(Player player); // each boss will have a unique attack function that inherits from this
+    public abstract void Attack(); // each boss will have a unique attack function that inherits from this
 }

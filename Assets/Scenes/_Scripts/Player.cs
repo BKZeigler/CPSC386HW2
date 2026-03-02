@@ -10,19 +10,18 @@ public class Player : MonoBehaviour
 
     private HealthBar healthBar;
 
-    GameState gameState;
+    private GameState gameState;
 
 
     private void Awake()
     {
-        healthBar = FindFirstObjectByType<HealthBar>(); // Initialize health bar reference
+        healthBar = GetComponentInChildren<HealthBar>(); // Initialize health bar reference
+        gameState = FindFirstObjectByType<GameState>(); // Intiailize game state reference
     }
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         currentHealth = maxHealth; // set current health to max health at the start of each fight
-
-        gameState = FindFirstObjectByType<GameState>(); // Intiailize game state reference
     }
 
     // Update is called once per frame
@@ -34,6 +33,7 @@ public class Player : MonoBehaviour
     public void TakeDamage(float damage)
     {
         currentHealth -= damage;
+        healthBar.UpdateHealthBar(currentHealth, maxHealth); // update health bar when taking damage
 
         if (currentHealth <= 0)
         {

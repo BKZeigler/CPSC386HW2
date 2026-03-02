@@ -1,5 +1,3 @@
-using JetBrains.Annotations;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class GluttonyBoss : Boss
@@ -8,17 +6,25 @@ public class GluttonyBoss : Boss
     public Sprite attackSprite;
     public float attackTimer;
 
-    private SpriteRenderer spriteRenderer;
+    public SpriteRenderer spriteRenderer;
+
+    public Player player;
 
     public override void Start()
     {
+        Debug.Log("DERIVED START RUNNING", this);
         base.Start();
         spriteRenderer = GetComponent<SpriteRenderer>();
+        player = FindFirstObjectByType<Player>();
+
+        if (player == null)
+        {
+            Debug.LogError("Player not found in the scene.");
+        }
     }
 
-    public override void Attack(Player player)
+    public override void Attack()
     {
-        Debug.Log("Trying to play animation");
         PlayAttackAnimation();
         if (player != null)
         {
@@ -28,7 +34,6 @@ public class GluttonyBoss : Boss
 
     public void PlayAttackAnimation()
     {
-        Debug.Log("Playing attack animation");
         spriteRenderer.sprite = attackSprite;
         Invoke("ResetToIdle", attackTimer);
     }
