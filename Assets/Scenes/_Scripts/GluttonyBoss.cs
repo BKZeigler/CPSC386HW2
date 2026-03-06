@@ -9,11 +9,19 @@ public class GluttonyBoss : Boss
     public SpriteRenderer spriteRenderer;
 
     public Player player;
+    public float currentHealth;
+    private float maxHealth = 100f;
+    public HealthBar healthBar;
+
+    public override void Awake()
+    {
+        healthBar = GetComponentInChildren<HealthBar>();
+    }
 
     public override void Start()
     {
-        Debug.Log("DERIVED START RUNNING", this);
         base.Start();
+        currentHealth = maxHealth;
         spriteRenderer = GetComponent<SpriteRenderer>();
         player = FindFirstObjectByType<Player>();
 
@@ -41,5 +49,19 @@ public class GluttonyBoss : Boss
     public void ResetToIdle()
     {
         spriteRenderer.sprite = idleSprite;
+    }
+
+    public override void TakeDamage(float damage)
+    {
+        currentHealth -= damage;
+        healthBar.UpdateHealthBar(currentHealth, maxHealth); // update health bar when taking damage
+
+        if (currentHealth <= 0)
+        {
+                CancelInvoke("Attack"); //stop any attack script runninh
+                gameObject.SetActive(false); // disable boss
+            //go to next scene (debug for now)
+            Debug.Log("Gluttony Boss Defeated!");
+        }
     }
 }

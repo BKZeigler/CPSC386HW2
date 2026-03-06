@@ -7,6 +7,10 @@ public abstract class Boss : MonoBehaviour // unique bosses will inherit from th
     private float attackTimer; // current timer of boss' attack cooldown
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
+
+    public virtual void Awake()
+    {
+    }
     public virtual void Start()
     {
         Debug.Log("BASE START RUNNING", this);
@@ -26,4 +30,6 @@ public abstract class Boss : MonoBehaviour // unique bosses will inherit from th
     }
 
     public abstract void Attack(); // each boss will have a unique attack function that inherits from this
+
+    public abstract void TakeDamage(float damage); // each boss will have a unique take damage function that inherits from this
 }

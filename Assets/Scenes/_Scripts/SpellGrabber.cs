@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.Scripting;
 
@@ -5,6 +6,8 @@ public class SpellGrabber : MonoBehaviour
 {
 
     [SerializeField] private string inputText;
+
+    [SerializeField] private TMP_InputField inputField;
     SpellChecker spellChecker;
 
     public void Awake()
@@ -16,6 +19,7 @@ public class SpellGrabber : MonoBehaviour
     {
         inputText = input.ToUpper(); // makes typed spell uppercase to match database names
         spellChecker.CheckSpell(inputText); // calls spells checkers CheckSpell
+        inputField.text = ""; // reset input text after checking
     }
 
 }

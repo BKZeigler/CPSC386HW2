@@ -12,11 +12,14 @@ public class Player : MonoBehaviour
 
     private GameState gameState;
 
+    public Boss currentBoss;
+
 
     private void Awake()
     {
         healthBar = GetComponentInChildren<HealthBar>(); // Initialize health bar reference
         gameState = FindFirstObjectByType<GameState>(); // Intiailize game state reference
+        currentBoss = FindFirstObjectByType<Boss>(); // Initialize boss reference
     }
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -39,5 +42,12 @@ public class Player : MonoBehaviour
         {
             gameState.Lose();  // Call lose function when health drops below or equal to 0
         }
+    }
+
+    public void LaunchSpell(string spellName)
+    {
+        var spellDatabase = Resources.Load<SpellDatabase>("SpellDatabase");
+        currentBoss.TakeDamage(spellDatabase.TryGetSpell(spellName, out var spell) ? spell.damage : 0);
+
     }
 }
