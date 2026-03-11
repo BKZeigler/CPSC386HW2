@@ -11,8 +11,9 @@ public class SpellChecker : MonoBehaviour // Takes input from spell grabber and 
     {
         var spellDatabase = Resources.Load<SpellDatabase>("SpellDatabase"); // recall the database of spells
 
-        if (spellDatabase.TryGetSpell(input, out var spell)) // if spell name is found in database (spelled correctly)
+        if (spellDatabase.TryGetSpell(input) != null) // if spell name is found in database (spelled correctly)
         {
+            var spell = spellDatabase.TryGetSpell(input);
             Debug.Log($"Spell found: {spell.spellName} with cooldown {spell.cooldown}");
             // check if spell is on cooldown
             // if not, call spell's effect and start its cooldown

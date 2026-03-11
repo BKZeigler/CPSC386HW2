@@ -4,7 +4,7 @@ public class GluttonyBoss : Boss
 {
     public Sprite idleSprite;
     public Sprite attackSprite;
-    public float attackTimer;
+    public new float attackTimer;
 
     public SpriteRenderer spriteRenderer;
 

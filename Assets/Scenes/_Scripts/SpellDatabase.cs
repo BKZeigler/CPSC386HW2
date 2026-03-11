@@ -11,11 +11,22 @@ public class SpellDatabase : ScriptableObject // Spell database efficient intial
     {
         lookup = new Dictionary<string, Spell>();
         foreach (var spell in spells)
+        {
             lookup[spell.spellName] = spell;
+        }
     }
+    public Spell TryGetSpell(string input)
+    {
+        lookup.TryGetValue(input, out var spell);
+        if (spell != null)
+        {
+            return spell;
+        }
+        else
+        {
+            return null;
+        }
 
-    public bool TryGetSpell(string input, out Spell spell)
-        => lookup.TryGetValue(input, out spell);
-
+    }
 
 }
