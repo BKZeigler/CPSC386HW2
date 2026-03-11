@@ -52,25 +52,11 @@ public class Player : MonoBehaviour
     {
         var spellDatabase = Resources.Load<SpellDatabase>("SpellDatabase");
         var spell = spellDatabase.TryGetSpell(spellName);
-        if (spell == null)
+    
+        if (spell.effect != null)
         {
-            Debug.LogError("SPELL IS NULL");
-            return;
+            spell.effect.ApplyEffect(currentBoss);
         }
-
-        if (spell.effect == null)
-        {
-            Debug.LogError("SPELL EFFECT IS NULL for spell: " + spell.spellName);
-            return;
-        }
-
-        if (currentBoss == null)
-        {
-            Debug.LogError("CURRENT BOSS IS NULL");
-            return;
-        }
-
-        spell.effect.ApplyEffect(currentBoss);
         currentBoss.TakeDamage(spell.damage);
 
     }
