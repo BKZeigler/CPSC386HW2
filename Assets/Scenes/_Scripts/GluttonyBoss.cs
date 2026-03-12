@@ -38,6 +38,11 @@ public class GluttonyBoss : Boss
         {
             player.TakeDamage(10);
         }
+        if (currentHealth < maxHealth)
+        {
+        currentHealth += 5; // regenerate on hit
+        healthBar.UpdateHealthBar(currentHealth, maxHealth); //update visually
+        }
     }
 
     public void PlayAttackAnimation()
