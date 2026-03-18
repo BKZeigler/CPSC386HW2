@@ -48,7 +48,7 @@ public class Player : MonoBehaviour
 
         if (currentHealth <= 0)
         {
-            gameState.Lose();  // Call lose function when health drops below or equal to 0
+            Die();  // Die when hp is 0 or below
         }
     }
 
@@ -71,12 +71,6 @@ public class Player : MonoBehaviour
             // play error sound effect
             return;
         }
-    
-        //if (spell.effect != null)
-        //{
-        //    spell.effect.ApplyEffect(currentBoss);
-        //}
-        //currentBoss.TakeDamage(spell.damage);
 
     }
 
@@ -95,6 +89,11 @@ public class Player : MonoBehaviour
         cooldowns[spell] = true;
         yield return new WaitForSeconds(spell.cooldown);
         cooldowns[spell] = false;
+    }
+
+    public void Die()
+    {
+        UnityEngine.SceneManagement.SceneManager.LoadScene("Lose"); // you lose when you die
     }
 
 

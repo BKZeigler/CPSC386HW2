@@ -3,10 +3,11 @@ using UnityEngine;
 public abstract class Boss : MonoBehaviour // unique bosses will inherit from this class
 {
 
-    public float attackInterval = 2f; // time between attacks
-    public float attackTimer; // current timer of boss' attack cooldown
+    public virtual float attackInterval { get; set; } // time between attacks
+    public virtual float attackTimer { get; set; } // current timer of boss' attack cooldown
     public virtual string bossName { get; set; }
     public virtual float damage { get; set; }
+
 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -30,6 +31,13 @@ public abstract class Boss : MonoBehaviour // unique bosses will inherit from th
             Attack(); // perform attack
             attackTimer = attackInterval; // and restart timer
         } 
+    }
+
+    public virtual void Die()
+    {
+        CancelInvoke("Attack"); //stop any attack script runninh
+        gameObject.SetActive(false); // disable boss
+        // save player data here
     }
 
     public abstract void Attack(); // each boss will have a unique attack function that inherits from this

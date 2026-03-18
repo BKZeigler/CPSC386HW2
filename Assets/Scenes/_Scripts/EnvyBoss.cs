@@ -1,21 +1,22 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 
-public class WrathBoss : Boss
+public class EnvyBoss : Boss
 {
     public Sprite idleSprite;
     public Sprite attackSprite;
     public new float attackTimer;
-    public override float attackInterval { get; set; } = 2f;
+    public override float attackInterval { get; set; }  = 2f;
 
     public SpriteRenderer spriteRenderer;
 
     public Player player;
     public float currentHealth;
-    private float maxHealth = 100f;
+    private float maxHealth = 50f;
     public HealthBar healthBar;
 
-    public override string bossName { get; set; } = "Wrath";
-    public override float damage { get; set; } = 10f;
+    public override string bossName { get; set; } = "Envy";
+    public override float damage { get; set; } = 5f;
 
     public override void Awake()
     {
@@ -32,6 +33,18 @@ public class WrathBoss : Boss
         if (player == null)
         {
             Debug.LogError("Player not found in the scene.");
+        }
+    }
+
+    public override void Update()
+    {
+        base.Update();
+        if (Keyboard.current.backspaceKey.wasPressedThisFrame)
+        {
+            maxHealth += 25f; // increase max health on player backspace
+            currentHealth = maxHealth; // heal to full
+            healthBar.UpdateHealthBar(currentHealth, maxHealth); // update health bar visually
+            damage = maxHealth / 10f; // increase damage based on max hp
         }
     }
 
@@ -69,6 +82,6 @@ public class WrathBoss : Boss
     public override void Die()
     {
         base.Die();
-        UnityEngine.SceneManagement.SceneManager.LoadScene("EnvyBoss");
+        UnityEngine.SceneManagement.SceneManager.LoadScene("Victory");
     }
 }

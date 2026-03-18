@@ -654,6 +654,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SpellChecker
   player: {fileID: 0}
+  boss: {fileID: 0}
 --- !u!114 &620490579
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1175,35 +1176,14 @@ GameObject:
   m_Component:
   - component: {fileID: 1263573793}
   - component: {fileID: 1263573792}
-  - component: {fileID: 1263573791}
+  - component: {fileID: 1263573794}
   m_Layer: 0
-  m_Name: GluttonyBoss
+  m_Name: EnvyBoss
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1263573791
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1263573789}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7360864fe8861714d8ddcfd2916fae41, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::GluttonyBoss
-  attackInterval: 2
-  attackTimer: 1
-  idleSprite: {fileID: 21300000, guid: 294ec2951e188fe44afe30acb0a40050, type: 3}
-  attackSprite: {fileID: 21300000, guid: 4b62ed230a82bc2468a42d26295a7caf, type: 3}
-  attackTimer: 1
-  spriteRenderer: {fileID: 1263573792}
-  player: {fileID: 0}
-  currentHealth: 0
-  healthBar: {fileID: 0}
 --- !u!212 &1263573792
 SpriteRenderer:
   serializedVersion: 2
@@ -1279,6 +1259,25 @@ Transform:
   - {fileID: 2130870188}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1263573794
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1263573789}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0ad15dfa9b9b3c04ca637172b8fa0ebe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnvyBoss
+  idleSprite: {fileID: 21300000, guid: 294ec2951e188fe44afe30acb0a40050, type: 3}
+  attackSprite: {fileID: 21300000, guid: 4b62ed230a82bc2468a42d26295a7caf, type: 3}
+  attackTimer: 1
+  spriteRenderer: {fileID: 1263573792}
+  player: {fileID: 0}
+  currentHealth: 0
+  healthBar: {fileID: 0}
 --- !u!1 &1772103436
 GameObject:
   m_ObjectHideFlags: 0

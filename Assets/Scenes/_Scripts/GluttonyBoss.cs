@@ -5,6 +5,7 @@ public class GluttonyBoss : Boss
     public Sprite idleSprite;
     public Sprite attackSprite;
     public new float attackTimer;
+    public override float attackInterval { get; set; } = 2f;
 
     public SpriteRenderer spriteRenderer;
 
@@ -15,6 +16,8 @@ public class GluttonyBoss : Boss
 
     public override string bossName { get; set; } = "Gluttony";
     public override float damage { get; set; } = 10f;
+
+
 
     public override void Awake()
     {
@@ -43,7 +46,14 @@ public class GluttonyBoss : Boss
         }
         if (currentHealth < maxHealth)
         {
-        currentHealth += 5; // regenerate on hit
+            if (currentHealth / maxHealth > 0.4f)
+            {
+                currentHealth += 10; // regenerate on hit
+            }
+            else
+            {
+                currentHealth += 30; // regenerate faster when below 40% hp
+            }
         healthBar.UpdateHealthBar(currentHealth, maxHealth); //update visually
         }
     }
@@ -66,10 +76,13 @@ public class GluttonyBoss : Boss
 
         if (currentHealth <= 0)
         {
-                CancelInvoke("Attack"); //stop any attack script runninh
-                gameObject.SetActive(false); // disable boss
-            //go to next scene (debug for now)
-            Debug.Log("Gluttony Boss Defeated!");
+            Die();
         }
+    }
+
+    public override void Die()
+    {
+        base.Die();
+        UnityEngine.SceneManagement.SceneManager.LoadScene("WrathBoss");
     }
 }
