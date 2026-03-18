@@ -8,17 +8,4 @@ public class Spell : ScriptableObject
     public float cooldown;
     public float damage;
     public SpellEffect effect; // Will be replaced by polymorphic behavior for healing/stunning/etc.
-    public bool isOnCooldown = false;
-
-    public virtual void StartCooldown()
-    {
-        Debug.Log("Cool down started for spell: " + spellName);
-        var remainingCooldown = cooldown;
-        isOnCooldown = true;
-        while (remainingCooldown > 0)
-        {
-            remainingCooldown -= Time.deltaTime;
-        }
-        isOnCooldown = false;
-    }
 }

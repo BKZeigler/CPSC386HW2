@@ -5,6 +5,9 @@ public abstract class Boss : MonoBehaviour // unique bosses will inherit from th
 
     public float attackInterval = 2f; // time between attacks
     public float attackTimer; // current timer of boss' attack cooldown
+    public virtual string bossName { get; set; }
+    public virtual float damage { get; set; }
+
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
 

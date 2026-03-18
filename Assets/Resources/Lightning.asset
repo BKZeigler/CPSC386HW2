@@ -17,4 +17,3 @@ MonoBehaviour:
   cooldown: 5
   damage: 30
   effect: {fileID: 11400000, guid: 8d72cdb76834a114cae5822012615198, type: 2}
-  isOnCooldown: 0

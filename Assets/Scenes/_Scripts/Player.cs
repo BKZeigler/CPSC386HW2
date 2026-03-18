@@ -1,4 +1,6 @@
 using UnityEngine;
+using System.Collections.Generic;
+using System.Collections;
 
 public class Player : MonoBehaviour
 {
@@ -15,6 +17,8 @@ public class Player : MonoBehaviour
     public Boss currentBoss;
 
     private SpellSelector spellSelector;
+
+    private Dictionary<Spell, bool> cooldowns = new();
 
 
     private void Awake()
@@ -52,12 +56,47 @@ public class Player : MonoBehaviour
     {
         var spellDatabase = Resources.Load<SpellDatabase>("SpellDatabase");
         var spell = spellDatabase.TryGetSpell(spellName);
-    
-        if (spell.effect != null)
+
+        if(CanCast(spell))
         {
-            spell.effect.ApplyEffect(currentBoss);
+            StartCooldown(spell);
+            if (spell.effect != null)
+                {
+                    spell.effect.ApplyEffect(currentBoss);
+                }
+            currentBoss.TakeDamage(spell.damage);
+        }else
+        {
+            Debug.Log("Spell is on cooldown.");
+            // play error sound effect
+            return;
         }
-        currentBoss.TakeDamage(spell.damage);
+    
+        //if (spell.effect != null)
+        //{
+        //    spell.effect.ApplyEffect(currentBoss);
+        //}
+        //currentBoss.TakeDamage(spell.damage);
 
     }
+
+    public bool CanCast(Spell spell)
+    {
+        return cooldowns.ContainsKey(spell) == false || cooldowns[spell] == false; // if cooldown does not exist or is false
+    }
+
+    public void StartCooldown(Spell spell)
+    {
+        StartCoroutine(CooldownRoutine(spell));
+    }
+
+    private IEnumerator CooldownRoutine(Spell spell)
+    {
+        cooldowns[spell] = true;
+        yield return new WaitForSeconds(spell.cooldown);
+        cooldowns[spell] = false;
+    }
+
+
+
 }

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class GluttonyBoss : Boss
+public class WrathBoss : Boss
 {
     public Sprite idleSprite;
     public Sprite attackSprite;
@@ -13,7 +13,7 @@ public class GluttonyBoss : Boss
     private float maxHealth = 100f;
     public HealthBar healthBar;
 
-    public override string bossName { get; set; } = "Gluttony";
+    public override string bossName { get; set; } = "Wrath";
     public override float damage { get; set; } = 10f;
 
     public override void Awake()
@@ -40,11 +40,6 @@ public class GluttonyBoss : Boss
         if (player != null)
         {
             player.TakeDamage(damage);
-        }
-        if (currentHealth < maxHealth)
-        {
-        currentHealth += 5; // regenerate on hit
-        healthBar.UpdateHealthBar(currentHealth, maxHealth); //update visually
         }
     }
 
