@@ -93,6 +93,7 @@ public class Player : MonoBehaviour
 
     public void Die()
     {
+        BossProgress.Instance.ClearProgress(); // clear progress on player death
         UnityEngine.SceneManagement.SceneManager.LoadScene("Lose"); // you lose when you die
     }
 
