@@ -83,6 +83,7 @@ public class EnvyBoss : Boss
     {
         base.Die();
         //BossProgress.Instance.BossDefeated(bossName);
+        BossProgress.Instance.BossDefeated(bossName);
         BossProgress.Instance.ClearProgress(); // after envy is defeated, victory and progress reset
         UnityEngine.SceneManagement.SceneManager.LoadScene("Victory");
     }

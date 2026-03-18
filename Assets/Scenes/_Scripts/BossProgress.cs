@@ -38,7 +38,7 @@ public class BossProgress : MonoBehaviour
     {
         PlayerPrefs.SetInt("GluttonyDefeated", 0);
         PlayerPrefs.SetInt("WrathDefeated", 0);
-        //PlayerPrefs.SetInt("EnvyDefeated", 0);
+        PlayerPrefs.SetInt("EnvyDefeated", 0);
         PlayerPrefs.Save();
     }
 

@@ -70,6 +70,7 @@ public class WrathBoss : Boss
     {
         base.Die();
         BossProgress.Instance.BossDefeated(bossName);
+        Debug.Log("Wrath defeated! Progress saved.");
         UnityEngine.SceneManagement.SceneManager.LoadScene("EnvyBoss");
     }
 }
