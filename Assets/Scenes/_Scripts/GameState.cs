@@ -4,7 +4,7 @@ using UnityEngine.InputSystem;
 public class GameState : MonoBehaviour
 {
     public Player player; // Reference to the player object
-    public bool settingsOpen = false;
+    public GameObject settingsMenu; // manually assign in inspector
 
     void Start()
     {
@@ -15,28 +15,32 @@ public class GameState : MonoBehaviour
     {
         if (Keyboard.current.escapeKey.wasPressedThisFrame)
         {
-            if (settingsOpen)
+            if (settingsMenu.activeSelf)
             {
                 Time.timeScale = 1f; // Unpause the game by setting time scale back to 1
                 Debug.Log("Game Unpaused");
-                settingsOpen = false;
+                settingsMenu.SetActive(false); // close the settings menu
             }
             else
             {
                 Time.timeScale = 0f; // Pause the game by setting time scale to 0
                 Debug.Log("Game Paused");
-                settingsOpen = true;
+                settingsMenu.SetActive(true); // open the settings menu
             }
-            // If settings is not open, open it, if open close it and unpause
-            // Pause the game
-            // Open a settings menu
-            //
         }
     }
 
-    public void Lose()
+    public void ResumeGame()
     {
-        Debug.Log("Player has lost the game!");
-        // Send to lose scene where player can restart quit
+        Time.timeScale = 1f; // Unpause the game by setting time scale back to 1
+        Debug.Log("Game Unpaused");
+        settingsMenu.SetActive(false); // close the settings menu
+    }
+
+    public void MainMenu()
+    {
+        Time.timeScale = 1f;
+        Debug.Log("Returning to Main Menu");
+        UnityEngine.SceneManagement.SceneManager.LoadScene("MainMenu");
     }
 }

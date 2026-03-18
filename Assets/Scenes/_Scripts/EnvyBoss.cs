@@ -82,6 +82,8 @@ public class EnvyBoss : Boss
     public override void Die()
     {
         base.Die();
+        //BossProgress.Instance.BossDefeated(bossName);
+        BossProgress.Instance.ClearProgress(); // after envy is defeated, victory and progress reset
         UnityEngine.SceneManagement.SceneManager.LoadScene("Victory");
     }
 }

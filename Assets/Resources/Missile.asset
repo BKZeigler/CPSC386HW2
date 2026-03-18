@@ -16,3 +16,4 @@ MonoBehaviour:
   spellName: MISSILE
   cooldown: 0
   damage: 20
+  effect: {fileID: 0}

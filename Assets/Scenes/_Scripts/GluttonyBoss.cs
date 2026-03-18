@@ -83,6 +83,7 @@ public class GluttonyBoss : Boss
     public override void Die()
     {
         base.Die();
+        BossProgress.Instance.BossDefeated(bossName);
         UnityEngine.SceneManagement.SceneManager.LoadScene("WrathBoss");
     }
 }

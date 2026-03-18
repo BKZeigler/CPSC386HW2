@@ -23,9 +23,17 @@ public class SpellChecker : MonoBehaviour // Takes input from spell grabber and 
         {
             Debug.Log("No spell found with that name.");
             Debug.Log("input received was " + input);
-            if (boss.bossName == "Wrath")
+            if (boss.bossName == "Wrath" && input != "") // if the boss is wrath and a spell was attempted but misspelled
             {
                 boss.damage += 5f; // enrage boss on misspelled spell
+                // tint sprite red to indicate enrage
+                var spriteRenderer = boss.GetComponent<SpriteRenderer>();
+                Color currentColor = spriteRenderer.color;
+                currentColor.g -= 0.2f;
+                currentColor.b -= 0.2f;
+                spriteRenderer.color = currentColor;
+                 
+
                 Debug.Log("Wrath Boss enraged! Damage increased to " + boss.damage);
             }
             // play error sound effect
