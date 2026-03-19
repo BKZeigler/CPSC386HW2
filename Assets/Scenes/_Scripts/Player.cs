@@ -1,6 +1,9 @@
 using UnityEngine;
 using System.Collections.Generic;
 using System.Collections;
+using TMPro;
+using UnityEngine.UI;
+using UnityEditor.Build;
 
 public class Player : MonoBehaviour
 {
@@ -22,6 +25,8 @@ public class Player : MonoBehaviour
 
     public Animator animator;
 
+    public TextMeshProUGUI fireballCooldown;
+    public TextMeshProUGUI lightningCooldown;
 
     private void Awake()
     {
@@ -84,7 +89,7 @@ public class Player : MonoBehaviour
 
     public bool CanCast(Spell spell)
     {
-        return cooldowns.ContainsKey(spell) == false || cooldowns[spell] == false; // if cooldown does not exist or is false
+        return cooldowns.ContainsKey(spell) == false || cooldowns[spell] == false || spell.cooldown == 0f; // if cooldown does not exist or is false
     }
 
     public void StartCooldown(Spell spell)
@@ -95,7 +100,32 @@ public class Player : MonoBehaviour
     private IEnumerator CooldownRoutine(Spell spell)
     {
         cooldowns[spell] = true;
-        yield return new WaitForSeconds(spell.cooldown);
+        TextMeshProUGUI targetText = null;
+        if (spell.spellName == "FIREBALL") // hardcoded for now
+        {
+            targetText = fireballCooldown;
+        }
+        else if (spell.spellName == "LIGHTNING") // hardcoded for now
+        {
+            targetText = lightningCooldown;
+        }
+        else if(spell.spellName == "MISSILE") // hardcoded for now
+        {
+            targetText = null;
+        }
+
+        float timeLeft = spell.cooldown;
+
+        while (timeLeft > 0)
+        {
+            targetText.text = $"{spell.spellName} Cooldown: {Mathf.Ceil(timeLeft)}";
+            timeLeft -= Time.deltaTime;
+            yield return null;
+        }
+        if (targetText != null) // if not missile
+        {
+            targetText.text = ""; // clear the text when cd is done
+        }
         cooldowns[spell] = false;
     }
 
