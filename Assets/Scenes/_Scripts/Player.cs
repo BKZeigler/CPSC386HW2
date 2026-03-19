@@ -12,7 +12,7 @@ public class Player : MonoBehaviour
 
     private HealthBar healthBar;
 
-    private GameState gameState;
+    private Settings settings;
 
     public Boss currentBoss;
 
@@ -24,7 +24,7 @@ public class Player : MonoBehaviour
     private void Awake()
     {
         healthBar = GetComponentInChildren<HealthBar>(); // Initialize health bar reference
-        gameState = FindFirstObjectByType<GameState>(); // Intiailize game state reference
+        settings = FindFirstObjectByType<Settings>(); // Intiailize settingsreference
         currentBoss = FindFirstObjectByType<Boss>(); // Initialize boss reference
         spellSelector = FindFirstObjectByType<SpellSelector>(); // Initialize spell selector reference
     }
