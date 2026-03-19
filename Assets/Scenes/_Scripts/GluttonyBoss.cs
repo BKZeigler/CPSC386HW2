@@ -52,7 +52,7 @@ public class GluttonyBoss : Boss
             }
             else
             {
-                currentHealth += 30; // regenerate faster when below 40% hp
+                currentHealth += 20; // regenerate faster when below 40% hp
             }
         healthBar.UpdateHealthBar(currentHealth, maxHealth); //update visually
         }
