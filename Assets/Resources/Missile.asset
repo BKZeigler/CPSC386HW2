@@ -17,3 +17,4 @@ MonoBehaviour:
   cooldown: 0
   damage: 20
   effect: {fileID: 0}
+  animationClip: {fileID: 7400000, guid: ad8f76fd68251de40b92c4d739a87eea, type: 2}

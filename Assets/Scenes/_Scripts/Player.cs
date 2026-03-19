@@ -64,6 +64,11 @@ public class Player : MonoBehaviour
                 {
                     spell.effect.ApplyEffect(currentBoss);
                 }
+            if (spell.animationClip != null)
+                {
+                    var animator = FindFirstObjectByType<Animator>();
+                    animator.Play(spell.animationClip.name);
+                }
             currentBoss.TakeDamage(spell.damage);
         }else
         {
