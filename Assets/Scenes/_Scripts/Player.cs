@@ -20,6 +20,8 @@ public class Player : MonoBehaviour
 
     private Dictionary<Spell, bool> cooldowns = new();
 
+    public Animator animator;
+
 
     private void Awake()
     {
@@ -27,6 +29,7 @@ public class Player : MonoBehaviour
         settings = FindFirstObjectByType<Settings>(); // Intiailize settingsreference
         currentBoss = FindFirstObjectByType<Boss>(); // Initialize boss reference
         spellSelector = FindFirstObjectByType<SpellSelector>(); // Initialize spell selector reference
+        animator = FindFirstObjectByType<Animator>(); // Initialize animator reference
     }
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -66,8 +69,8 @@ public class Player : MonoBehaviour
                 }
             if (spell.animationClip != null)
                 {
-                    var animator = FindFirstObjectByType<Animator>();
-                    animator.Play(spell.animationClip.name);
+                    Debug.Log("Playing animation: " + spell.animationClip.name);
+                    animator.Play(spell.animationClip.name, 0, 0f);
                 }
             currentBoss.TakeDamage(spell.damage);
         }else
