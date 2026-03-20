@@ -2,8 +2,6 @@ using UnityEngine;
 using System.Collections.Generic;
 using System.Collections;
 using TMPro;
-using UnityEngine.UI;
-using UnityEditor.Build;
 
 public class Player : MonoBehaviour
 {
