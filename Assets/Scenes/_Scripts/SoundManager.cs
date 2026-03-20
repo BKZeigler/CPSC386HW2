@@ -2,54 +2,54 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class SoundManager : MonoBehaviour
+public class SoundManager : MonoBehaviour // used referenced youtube videos and Microsoft Copilot
 {
-    public static SoundManager Instance;
+    public static SoundManager Instance; // stores instance of sound manager
 
-    private Slider volumeSlider;
+    private Slider volumeSlider; // stores the slider
 
     void Awake()
     {
-        if (Instance == null)
+        if (Instance == null) // if sound manager doesnt exist
         {
-            Instance = this;
-            DontDestroyOnLoad(gameObject);
+            Instance = this; // create it
+            DontDestroyOnLoad(gameObject); // sound manager should not reset on scene change
         }
-        else
+        else // if it already exists
         {
-            Destroy(gameObject);
+            Destroy(gameObject); // Only one instance of sound manager should exist
             return;
         }
 
-        if (!PlayerPrefs.HasKey("Volume"))
-            PlayerPrefs.SetFloat("Volume", 0.75f);
+        if (!PlayerPrefs.HasKey("Volume")) // if there is no saved volume
+            PlayerPrefs.SetFloat("Volume", 0.75f); // set default volume to 0.75
 
-        AudioListener.volume = PlayerPrefs.GetFloat("Volume");
+        AudioListener.volume = PlayerPrefs.GetFloat("Volume"); // set volume to saved volume
 
-        SceneManager.sceneLoaded += OnSceneLoaded;
+        SceneManager.sceneLoaded += OnSceneLoaded; // subscribe to scene loaded event to reassign slider when scene changes
 
-        AssignSliderInScene();
+        AssignSliderInScene(); // assign slider in case starting in a scene with a slider
     }
 
 
     void OnDestroy()
     {
-        SceneManager.sceneLoaded -= OnSceneLoaded;
+        SceneManager.sceneLoaded -= OnSceneLoaded; // unsubscribe from scene loaded event when sound manager is destroyed to prevent errors
     }
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        AssignSliderInScene();
+        AssignSliderInScene(); // reassign slider when scene changes in case the new scene has a slider (like settings) or the old one is destroyed (like main menu)
     }
 
     public void AssignSliderInScene()
     {
-        volumeSlider = null;
+        volumeSlider = null; // reset slider reference
 
         // Find ALL sliders, including inactive ones
         Slider[] allSliders = Resources.FindObjectsOfTypeAll<Slider>();
 
-        foreach (Slider s in allSliders)
+        foreach (Slider s in allSliders) // loop through all sliders
         {
             // Skip prefab assets (they have no valid scene)
             if (!s.gameObject.scene.IsValid())
@@ -68,89 +68,19 @@ public class SoundManager : MonoBehaviour
             break;
         }
 
-        if (volumeSlider == null)
-            return;
+        if (volumeSlider == null) // if no slider was found
+            return; // do nothing
 
-        float saved = PlayerPrefs.GetFloat("Volume");
-        volumeSlider.value = saved;
+        float saved = PlayerPrefs.GetFloat("Volume"); // get saved volume
+        volumeSlider.value = saved; // set slider to saved volume
 
-        volumeSlider.onValueChanged.RemoveAllListeners();
-        volumeSlider.onValueChanged.AddListener(SetVolume);
+        volumeSlider.onValueChanged.RemoveAllListeners(); // remove previous listeners to prevent multiple calls
+        volumeSlider.onValueChanged.AddListener(SetVolume); // add listener to update volume when slider is changed
     }
 
     public void SetVolume(float volume)
     {
-        AudioListener.volume = volume;
-        PlayerPrefs.SetFloat("Volume", volume);
+        AudioListener.volume = volume; // set volume to slider value
+        PlayerPrefs.SetFloat("Volume", volume); // save volume so it persists between sessions
     }
 }
-
-
-
-// using UnityEngine;
-// using UnityEngine.SceneManagement;
-// using UnityEngine.UI;
-
-// public class SoundManager : MonoBehaviour
-// {
-//     [SerializeField] Slider volumeSlider;
-//     // Start is called once before the first execution of Update after the MonoBehaviour is created
-//     void Start()
-//     {
-//         SceneManager.sceneLoaded += OnSceneLoad; // Listen for scene load events
-//         if(!PlayerPrefs.HasKey("Volume")) // if no saved volume, set to 0.75
-//         {
-//             PlayerPrefs.SetFloat("Volume", 0.75f);
-//             Load();
-//         }
-//         else
-//         {
-//             Load();
-//         }
-//     }
-
-//     public void SetVolume(float volume)
-//     {
-//         AudioListener.volume = volumeSlider.value; // set volume to slider value
-//         Save();
-//     }
-
-//     private void Load()
-//     {
-//         volumeSlider.value = PlayerPrefs.GetFloat("Volume");
-//         AudioListener.volume = volumeSlider.value; // set volume to slider value
-//     }
-
-//     private void Save()
-//     {
-//         PlayerPrefs.SetFloat("Volume", volumeSlider.value); // save volume slider value
-//     }
-
-//     void OnDestroy()
-//     {
-//         SceneManager.sceneLoaded -= OnSceneLoad;
-//     }
-
-//     private void OnSceneLoad(Scene scene, LoadSceneMode mode)
-//     {
-//         GameObject sliderObj = GameObject.FindGameObjectWithTag("VolumeSlider");
-
-//         if (sliderObj != null)
-//         {
-//             Slider newSlider = sliderObj.GetComponent<Slider>();
-
-//             if (newSlider != null)
-//             {
-//                 volumeSlider = newSlider;
-
-//                 // Sync slider to saved volume
-//                 Load();
-
-//                 // Hook up event
-//                 volumeSlider.onValueChanged.RemoveAllListeners();
-//                 volumeSlider.onValueChanged.AddListener(SetVolume);
-//             }
-//         }
-//     }
-// }
-

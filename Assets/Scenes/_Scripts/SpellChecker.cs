@@ -6,8 +6,8 @@ public class SpellChecker : MonoBehaviour // Takes input from spell grabber and 
     public Boss boss;
     public void Start()
     {
-        player = FindFirstObjectByType<Player>();
-        boss = FindFirstObjectByType<Boss>();
+        player = FindFirstObjectByType<Player>(); // find player
+        boss = FindFirstObjectByType<Boss>(); // find boss
     }
     public void CheckSpell(string input)
     {
@@ -15,28 +15,20 @@ public class SpellChecker : MonoBehaviour // Takes input from spell grabber and 
 
         if (spellDatabase.TryGetSpell(input) != null) // if spell name is found in database (spelled correctly)
         {
-            var spell = spellDatabase.TryGetSpell(input);
-            Debug.Log($"Spell found: {spell.spellName} with cooldown {spell.cooldown}");
-            player.LaunchSpell(spell.spellName);
+            var spell = spellDatabase.TryGetSpell(input); // try to get spel from database
+            player.LaunchSpell(spell.spellName); // launch that spell
         }
         else
         {
-            Debug.Log("No spell found with that name.");
-            Debug.Log("input received was " + input);
             if (boss.bossName == "Wrath" && input != "") // if the boss is wrath and a spell was attempted but misspelled
             {
-                boss.damage += 5f; // enrage boss on misspelled spell
-                // tint sprite red to indicate enrage
-                var spriteRenderer = boss.GetComponent<SpriteRenderer>();
-                Color currentColor = spriteRenderer.color;
-                currentColor.g -= 0.2f;
-                currentColor.b -= 0.2f;
-                spriteRenderer.color = currentColor;
-                 
-
-                Debug.Log("Wrath Boss enraged! Damage increased to " + boss.damage);
+                boss.damage += 10f; // enrage boss on misspelled spell
+                var spriteRenderer = boss.GetComponent<SpriteRenderer>(); // get renderer for boss
+                Color currentColor = spriteRenderer.color; // get its current color
+                currentColor.g -= 0.2f; // tint it red
+                currentColor.b -= 0.2f; // tint it red
+                spriteRenderer.color = currentColor; // apply the color change
             }
-            // play error sound effect
         }
     }
 }

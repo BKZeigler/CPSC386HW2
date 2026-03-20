@@ -1,10 +1,9 @@
 using UnityEngine;
-using UnityEngine.AdaptivePerformance;
 
 [CreateAssetMenu(menuName = "Spells/Effects")]
 public abstract class SpellEffect : ScriptableObject
 {
-    public abstract void ApplyEffect(Boss boss);
-    public abstract void ApplyEffect(Player player);
+    public abstract void ApplyEffect(Boss boss); // effect application for boss
+    public abstract void ApplyEffect(Player player); // effect application for player
 }
 

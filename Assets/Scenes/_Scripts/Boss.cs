@@ -5,26 +5,19 @@ public abstract class Boss : MonoBehaviour // unique bosses will inherit from th
 
     public virtual float attackInterval { get; set; } // time between attacks
     public virtual float attackTimer { get; set; } // current timer of boss' attack cooldown
-    public virtual string bossName { get; set; }
-    public virtual float damage { get; set; }
-
-
-
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    public virtual string bossName { get; set; } // boss name
+    public virtual float damage { get; set; } // boss damage
 
     public virtual void Awake()
     {
     }
     public virtual void Start()
     {
-        Debug.Log("BASE START RUNNING", this);
         attackTimer = attackInterval; // timer starts given the attack interval
     }
-
-    // Update is called once per frame
     public virtual void Update()
     {
-       attackTimer -= Time.deltaTime;
+       attackTimer -= Time.deltaTime; // every frame reduce attack timer by time since last frame
 
        if (attackTimer <= 0f) // when the timer is hits zero
         {
@@ -35,9 +28,8 @@ public abstract class Boss : MonoBehaviour // unique bosses will inherit from th
 
     public virtual void Die()
     {
-        CancelInvoke("Attack"); //stop any attack script runninh
+        CancelInvoke("Attack"); //stop any attack script running
         gameObject.SetActive(false); // disable boss
-        // save player data here
     }
 
     public abstract void Attack(); // each boss will have a unique attack function that inherits from this

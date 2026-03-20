@@ -12,7 +12,7 @@ public class SpellGrabber : MonoBehaviour
 
     public void Awake()
     {
-        spellChecker = FindFirstObjectByType<SpellChecker>();
+        spellChecker = FindFirstObjectByType<SpellChecker>(); // find spell checker
     }
 
     public void GrabSpellFromInput(string input) // Grabs spell name input by player and calls to spellchecker to check it
