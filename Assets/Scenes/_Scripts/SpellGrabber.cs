@@ -1,6 +1,5 @@
 using TMPro;
 using UnityEngine;
-using UnityEngine.Scripting;
 
 public class SpellGrabber : MonoBehaviour
 {
