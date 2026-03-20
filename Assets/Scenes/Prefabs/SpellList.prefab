@@ -65,19 +65,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Type Different Spells to Cast
-
-    Spell - Damage - Cooldown
-
-    Missile
-    - 20 - 0
-
-    Fireball - 10 - 5 - Burns
-
-    Lightning - 30 - 5 - Stuns
-
-    Press
-    Escape for Settings'
+  m_text: "Type Different \nSpells to Cast\n\nMissile  (0s)\nFireball  (5s)\n- burns\nLightning 
+    (5s)\n- stuns\n \nPress Escape\nfor Settings"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -104,8 +93,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 36
-  m_fontSizeBase: 36
+  m_fontSize: 32
+  m_fontSizeBase: 32
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
